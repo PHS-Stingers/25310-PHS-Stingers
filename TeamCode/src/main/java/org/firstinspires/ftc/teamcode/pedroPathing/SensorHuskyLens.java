@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode.pedroPathing;
 
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -37,8 +37,7 @@ public class SensorHuskyLens extends LinearOpMode {
     private HuskyLens huskyLens;
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
         huskyLens = hardwareMap.get(HuskyLens.class, "huskylens");
 
         /*
@@ -93,7 +92,7 @@ public class SensorHuskyLens extends LinearOpMode {
          *
          * Note again that the device only recognizes the 36h11 family of tags out of the box.
          */
-        while(opModeIsActive()) {
+        while (opModeIsActive()) {
             if (!rateLimit.hasExpired()) {
                 continue;
             }
@@ -121,14 +120,17 @@ public class SensorHuskyLens extends LinearOpMode {
                  *
                  * These values have Java type int (integer).
                  */
-                if(Block[i].width == 64){
+                if (blocks[i].width <= 150) {
+                    telemetry.addData("Move forward", 1);
+                } else if (blocks[i].width > 200) {
+                    telemetry.addData("Move back", 1);
+                } else {
+                    telemetry.addData("All Good", 1);
 
                 }
 
-
+                telemetry.update();
             }
-
-            telemetry.update();
         }
     }
 }
